@@ -15,7 +15,8 @@ import java.util.List;
 @Service
 public class RoleServiceImpl implements RoleService {
 
-    @Autowired private RoleRepository roleRepo;
+    @Autowired
+    private RoleRepository roleRepo;
 
     @Override
     public Role createRole(RoleDto dto) {
@@ -33,9 +34,10 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role updateRole(Long id, RoleDto dto) {
-        Role role = getRole(id);
+        Role role = roleRepo.findById(id)
+                .orElseThrow(()-> new RoleNotFoundException("Role Not Found"));
         role.setRoleName(dto.getRoleName());
-        role.setIsActive(dto.getActive());
+        role.setIsActive(dto.getIsActive());
         role.setUpdatedAt(LocalDate.now());
         return roleRepo.save(role);
     }

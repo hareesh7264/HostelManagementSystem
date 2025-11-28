@@ -5,9 +5,6 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "users", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"email"})
-})
 @Getter
 @Setter
 @NoArgsConstructor
@@ -37,5 +34,5 @@ public class User {
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private boolean active;
+    private Boolean active;
 }
