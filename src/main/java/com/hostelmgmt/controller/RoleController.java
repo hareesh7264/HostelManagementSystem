@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/roles")
+@RequestMapping ("/api/roles")
 public class RoleController {
 
     @Autowired
@@ -21,7 +21,7 @@ public class RoleController {
         return roleService.createRole(dto);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping ("/{id}")
     public Role update(@PathVariable Long id, @RequestBody RoleDto dto) {
         return roleService.updateRole(id, dto);
     }
@@ -31,12 +31,12 @@ public class RoleController {
         return roleService.getAllRoles();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping ("/{id}")
     public Role getById(@PathVariable Long id) {
         return roleService.getRole(id);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping ("/{id}")
     public String delete(@PathVariable Long id) {
         roleService.deleteRole(id);
         return "Role deleted successfully";

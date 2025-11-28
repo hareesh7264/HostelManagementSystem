@@ -10,7 +10,6 @@ import com.hostelmgmt.repository.UserRepository;
 import com.hostelmgmt.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -38,18 +37,21 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setEmail(userDto.getEmail());
         user.setPhone(userDto.getPhone());
+        user.setCreatedAt(LocalDateTime.now());
         user.setRole(role);
         user.setActive(true);
         return userRepository.save(user);
     }
 
     @Override
-    public User updateUser(Long id, UserDto dto) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User not found: " + id));
+    public User updateUser(Long userId, UserDto dto) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found: " + userId));
 
         Role role = roleRepository.findById(dto.getRoleId())
                 .orElseThrow(() -> new RoleNotFoundException("Role not found"));
+         if(userRepository.existsByEmail(dto.getEmail()))
+             throw new RuntimeException("Email already Existed");
 
         user.setUserName(dto.getUsername());
         user.setEmail(dto.getEmail());
