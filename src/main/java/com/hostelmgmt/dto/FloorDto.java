@@ -1,0 +1,18 @@
+package com.hostelmgmt.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class FloorDto {
+    private Long floorId;
+    private String floorName;
+    private Integer floorNumber;
+    private Integer totalRooms;
+    private Boolean isActive;
+}

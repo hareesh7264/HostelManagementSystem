@@ -9,6 +9,6 @@ import lombok.*;
 public class RoleDto {
     private Long roleId;
     private String roleName;
-    private Boolean active;
+    private Boolean isActive;
 }
 
