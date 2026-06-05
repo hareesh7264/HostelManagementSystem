@@ -13,5 +13,8 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
     List<Room> findByFloorNumber(Integer floorNumber);
 
     int countByFloor(Floor floor);
+
+    int countByFloorFloorId(Long floorId);
+    List<Room> findByFloorFloorId(Long floorId);
 }
 

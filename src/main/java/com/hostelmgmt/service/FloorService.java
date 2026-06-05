@@ -8,7 +8,7 @@ import java.util.List;
 public interface FloorService {
     Floor createFloor(FloorDto dto);
     Floor updateFloor(Long floorId, FloorDto dto);
-    List<Floor> getFloor();
+    List<FloorDto> getFloor();
     Floor getFloorById(Long floorId);
     void deleteFloor(Long floorId);
 

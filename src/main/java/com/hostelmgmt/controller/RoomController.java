@@ -3,6 +3,7 @@ package com.hostelmgmt.controller;
 import com.hostelmgmt.dto.RoomDto;
 import com.hostelmgmt.entity.Room;
 import com.hostelmgmt.service.RoomService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import java.util.List;
 @RequestMapping ("/api/rooms")
 public class RoomController {
 
+    @Autowired
     private final RoomService roomService;
 
     public RoomController(RoomService roomService) {

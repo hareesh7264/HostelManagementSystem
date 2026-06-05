@@ -45,8 +45,14 @@ public class FloorServiceImpl implements FloorService {
     }
 
     @Override
-    public List<Floor> getFloor() {
-        return floorRepository.findAll();
+    public List<FloorDto> getFloor() {
+
+        List<Floor> floor = floorRepository.findAll();
+
+        return floor.stream()
+                .map(this::dto)
+                .toList();
+
     }
 
     @Override
@@ -60,6 +66,18 @@ public class FloorServiceImpl implements FloorService {
         Floor floor = floorRepository.findById(floorId)
                 .orElseThrow(() -> new FloorIdNotFoundException("Floor not found with Id " + floorId));
         floorRepository.delete(floor);
+
+    }
+
+    public FloorDto dto(Floor floor) {
+        FloorDto floorDto = new FloorDto();
+
+        floorDto.setFloorId(floor.getFloorId());
+        floorDto.setFloorName(floor.getFloorName());
+        floorDto.setFloorNumber(floor.getFloorNumber());
+        floorDto.setTotalRooms(floor.getTotalRooms());
+        floorDto.setIsActive(floor.getIsActive());
+        return floorDto;
 
     }
 }

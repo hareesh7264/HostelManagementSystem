@@ -10,4 +10,6 @@ public interface RoomAllocationService {
     AllocationResponse switchBed(SwitchBedRequest req);
     List<AllocationResponse> getAllocationsByRoom(Long roomId);
     List<AllocationResponse> getAllocationsByUser(Long userId);
+    AllocationResponse getAllocation(Long allocationId);
+    List<AllocationResponse> getActiveAllocations();
 }

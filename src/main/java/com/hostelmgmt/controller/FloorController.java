@@ -2,6 +2,7 @@ package com.hostelmgmt.controller;
 
 import com.hostelmgmt.dto.FloorDto;
 import com.hostelmgmt.service.FloorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,7 +10,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping ("/api/floors")
 public class FloorController {
 
-    private final FloorService floorService;
+    @Autowired
+    private FloorService floorService;
 
     public FloorController(FloorService floorService) {
         this.floorService = floorService;

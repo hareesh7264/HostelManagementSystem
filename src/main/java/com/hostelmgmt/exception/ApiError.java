@@ -12,24 +12,17 @@ import java.util.List;
 @Setter
 @Getter
 @AllArgsConstructor
-
+@NoArgsConstructor
 public class ApiError {
 
     private HttpStatus status;
-
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private LocalDateTime timestamp;
-
     private String errors;
-
     private List<String> message;
 
-    public ApiError() {
-        timestamp = LocalDateTime.now();
-    }
-
     public ApiError(HttpStatus status, String errors, List<String> message) {
-        this();
+        this.timestamp = LocalDateTime.now();
         this.status = status;
         this.errors = errors;
         this.message = message;
