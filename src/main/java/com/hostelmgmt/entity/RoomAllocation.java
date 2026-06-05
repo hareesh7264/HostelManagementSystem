@@ -9,8 +9,11 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "room_allocation")
-@Getter @Setter
-@NoArgsConstructor @AllArgsConstructor @Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class RoomAllocation {
 
     @Id
@@ -21,16 +24,23 @@ public class RoomAllocation {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+    private String userName;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "floor_id")
+    private Floor floor;
+    private Integer floorNumber;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_id", nullable = false)
+    private Room room;
+    private String roomNumber;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "bed_id", nullable = false, unique = true)
     private Bed bed;
     private String bedNumber;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "room_id", nullable = false)
-    private Room room;
-    private String roomNumber;
 
     @Column(nullable = false)
     private LocalDate moveInDate;

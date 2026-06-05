@@ -11,9 +11,10 @@ import java.util.Optional;
 @Repository
 public interface RoomAllocationRepository extends JpaRepository<RoomAllocation, Long> {
     Optional<RoomAllocation> findByUserUserIdAndStatus(Long userId, AllocationStatus status);
+    Optional<RoomAllocation> findByBedBedIdAndStatus(Long bedId, AllocationStatus status);
     List<RoomAllocation> findByRoomRoomId(Long roomId);
     List<RoomAllocation> findByUserUserId(Long userId);
+    List<RoomAllocation> findByStatus(AllocationStatus status);
 
-    // active allocation by bed
-    Optional<RoomAllocation> findByBedBedIdAndStatus(Long bedId, AllocationStatus status);
+
 }

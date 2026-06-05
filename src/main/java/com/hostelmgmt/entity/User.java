@@ -1,14 +1,16 @@
 package com.hostelmgmt.entity;
 
+
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.time.LocalDateTime;
 
-@Entity
-@Getter
 @Setter
-@NoArgsConstructor
+@Getter
 @AllArgsConstructor
+@NoArgsConstructor
+@Entity
 @Builder
 
 public class User {

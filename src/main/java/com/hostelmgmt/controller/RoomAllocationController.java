@@ -4,6 +4,7 @@ import com.hostelmgmt.dto.*;
 import com.hostelmgmt.service.RoomAllocationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,19 +15,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RoomAllocationController {
 
-    private final RoomAllocationService allocationService;
+    @Autowired
+    private RoomAllocationService allocationService;
 
     @PostMapping ("/allocate")
     public ResponseEntity<AllocationResponse> allocate(@Valid @RequestBody AllocateRequest req) {
         return ResponseEntity.ok(allocationService.allocateRoom(req));
     }
 
-    @PostMapping ("/moveOut")
+    @PutMapping ("/move-out")
     public ResponseEntity<AllocationResponse> moveOut(@Valid @RequestBody MoveOutRequest req) {
         return ResponseEntity.ok(allocationService.moveOut(req));
     }
 
-    @PostMapping ("/switch")
+    @PutMapping ("/switch-bed")
     public ResponseEntity<AllocationResponse> switchBed(@Valid @RequestBody SwitchBedRequest req) {
         return ResponseEntity.ok(allocationService.switchBed(req));
     }
@@ -39,5 +41,15 @@ public class RoomAllocationController {
     @GetMapping ("/user/{userId}")
     public ResponseEntity<List<AllocationResponse>> byUser(@PathVariable Long userId) {
         return ResponseEntity.ok(allocationService.getAllocationsByUser(userId));
+    }
+
+    @GetMapping("/allocations")
+    public ResponseEntity<List<AllocationResponse>> getActiveAllocations(){
+        return ResponseEntity.ok(allocationService.getActiveAllocations());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AllocationResponse> getAllocation(@PathVariable Long id){
+        return ResponseEntity.ok(allocationService.getAllocation(id));
     }
 }

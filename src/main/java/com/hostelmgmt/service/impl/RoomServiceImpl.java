@@ -16,16 +16,13 @@ public class RoomServiceImpl implements RoomService {
 
     @Autowired
     private final RoomRepository roomRepository;
-    @Autowired
     private final FloorRepository floorRepository;
     private final BedRepository bedRepository;
-    private final UserRepository userRepository;
 
-    public RoomServiceImpl(RoomRepository roomRepository, FloorRepository floorRepository, BedRepository bedRepository, UserRepository userRepository) {
+    public RoomServiceImpl(RoomRepository roomRepository, FloorRepository floorRepository, BedRepository bedRepository) {
         this.roomRepository = roomRepository;
         this.floorRepository = floorRepository;
         this.bedRepository = bedRepository;
-        this.userRepository = userRepository;
     }
 
     @Override
@@ -69,8 +66,9 @@ public class RoomServiceImpl implements RoomService {
         for (int i = 1; i <= dto.getTotalBeds(); i++) {
             beds.add(Bed.builder()
                     .bedNumber("Bed-" + i)
-                    .isOccupied(false)
                     .room(savedRoom)
+                    .roomNumber(savedRoom.getRoomNumber())
+                    .isOccupied(false)
                     .build());
         }
         bedRepository.saveAll(beds);
@@ -122,6 +120,7 @@ public class RoomServiceImpl implements RoomService {
                 bedsToAdd.add(Bed.builder()
                         .bedNumber("Bed-" + i)
                         .room(updatedRoom)
+                            .roomNumber(updatedRoom.getRoomNumber())
                         .isOccupied(false)
                         .build());
             }
@@ -242,4 +241,3 @@ public class RoomServiceImpl implements RoomService {
     }
 
 }
-
