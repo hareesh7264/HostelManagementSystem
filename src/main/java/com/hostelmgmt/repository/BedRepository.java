@@ -13,5 +13,8 @@ public interface BedRepository extends JpaRepository<Bed, Long> {
     List<Bed> findByRoom(Room room);
     Optional<Bed> findByRoomAndBedNumber(Room room, String bedNumber);
     List<Bed> findByIsOccupiedFalse();
+    long countByRoomRoomIdAndIsOccupiedFalse(Long roomId);
+    long countByRoomFloorFloorIdAndIsOccupiedFalse(Long floorId);
+    List<Bed> findByRoomRoomId(Long roomId);
 }
 

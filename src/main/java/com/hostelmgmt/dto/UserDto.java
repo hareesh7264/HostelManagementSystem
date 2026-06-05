@@ -1,16 +1,17 @@
 package com.hostelmgmt.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.PriorityQueue;
+
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class UserDto {
     private Long userId;
     private String username;
@@ -19,6 +20,8 @@ public class UserDto {
     private String phone;
     private Long roleId;
     private String roleName;
+    private LocalDateTime createdAt;
     private Boolean isActive;
+
 }
 

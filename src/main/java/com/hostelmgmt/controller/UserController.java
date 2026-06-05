@@ -16,8 +16,8 @@ public class UserController {
     private UserService userService;
 
     @PostMapping ("/register")
-    public ResponseEntity<User> register(@RequestBody UserDto userDto) {
-        User newUser = userService.registerUser(userDto);
+    public ResponseEntity<UserDto> register(@RequestBody UserDto userDto) {
+        UserDto newUser = userService.registerUser(userDto);
         return ResponseEntity.ok(newUser);
     }
 
@@ -33,7 +33,7 @@ public class UserController {
     }
 
     @GetMapping ("/{id}")
-    public User getById(@PathVariable Long id) {
+    public UserDto getById(@PathVariable Long id) {
         return userService.getUser(id);
     }
 

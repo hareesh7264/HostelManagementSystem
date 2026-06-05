@@ -19,14 +19,18 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private RoleRepository roleRepository;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+    }
+
     @Override
-    public User registerUser(UserDto userDto) {
+    public UserDto registerUser(UserDto userDto) {
         if (userRepository.existsByEmail(userDto.getEmail())) {
             throw new RuntimeException("This email is already registered");
         }
@@ -40,7 +44,22 @@ public class UserServiceImpl implements UserService {
         user.setCreatedAt(LocalDateTime.now());
         user.setRole(role);
         user.setActive(true);
-        return userRepository.save(user);
+
+        return mapToDto(userRepository.save(user));
+    }
+
+    private UserDto mapToDto(User user){
+        UserDto dto = new UserDto();
+        dto.setUserId(user.getUserId());
+        dto.setUsername(user.getUserName());
+        dto.setEmail(user.getEmail());
+        dto.setPassword(user.getPassword());
+        dto.setPhone(user.getPhone());
+        dto.setRoleId(user.getRole().getRoleId());
+        dto.setRoleName(user.getRole().getRoleName());
+        dto.setCreatedAt(user.getCreatedAt());
+        dto.setIsActive(user.getActive());
+        return dto;
     }
 
     @Override
@@ -77,9 +96,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUser(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User not found"));
+    public UserDto getUser(Long id) {
+       User user = userRepository.findById(id)
+               .orElseThrow(()-> new UserNotFoundException("User Not found"));
+
+       return mapToDto(user);
     }
 }
 
